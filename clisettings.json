@@ -1,0 +1,17 @@
+{
+  "domainNamespace": "Comeback.Api",
+  "applicationNamespace": "Comeback.Api",
+  "infrastructureNamespace": "Comeback.Api",
+  "apiNamespace": "Comeback.Api",
+  "domainDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
+  "applicationDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
+  "infrastructureDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
+  "apiDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
+  "appDirectories": [ "C:\\Projects\\Comeback\\src\\Comeback.App" ],
+  "path": "C:\\Projects\\Comeback",
+  "dbContext": "ComebackDbContext",
+  "sourceFolder": "src",
+  "resources": [
+    "DailyMeasurement"
+  ]
+}
