@@ -5,7 +5,7 @@ import { CreateDailyMeasurementComponent } from './create-daily-measurement.comp
 import { DailyMeasurementEditorModule } from '@shared';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CreateDailyMeasurementRoutingModule,
     DailyMeasurementEditorModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ]
 })
 export class CreateDailyMeasurementModule { }

@@ -4,20 +4,26 @@
   box-sizing: border-box;
   cursor: pointer;
   position: relative;
+
   mat-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
     height: 100%;
-    padding:40px;
     box-sizing: border-box;
   }
 
   mat-icon {
     color: #ccc;
-    position: absolute;
-    top:30px;
-    right: 40px;
   }
 
-  mat-card-title {
-    margin: 60px 0px 20px;
+  .button-group {
+    grid-column: 2;
+    margin-left: auto;
+    display: inline-block;
+  }
+
+  mat-card-title,
+  mat-card-subtitle {
+    grid-column: 1/2;
   }
 }
