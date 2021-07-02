@@ -7,6 +7,7 @@ namespace Comeback.Api.Data
     public class ComebackDbContext: DbContext, IComebackDbContext
     {
         public DbSet<DailyMeasurement> DailyMeasurements { get; private set; }
+        public DbSet<Goal> Goals { get; private set; }
         public ComebackDbContext(DbContextOptions options)
             :base(options) { }
 

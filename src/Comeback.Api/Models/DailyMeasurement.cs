@@ -9,9 +9,17 @@ namespace Comeback.Api.Models
         public string Description { get; private set; }
         public DateTime Date { get; private set; }
 
-        public DailyMeasurement()
+        public DailyMeasurement(DateTime date, decimal weight, string description)
+        {
+            Date = date;
+            Weight = weight;
+            Description = description;
+        }
+
+        public void Update(string description)
         {
 
+            Description = description;
         }
 
         private DailyMeasurement()

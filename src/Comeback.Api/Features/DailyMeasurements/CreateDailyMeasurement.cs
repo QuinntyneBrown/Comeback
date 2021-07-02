@@ -39,7 +39,10 @@ namespace Comeback.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var dailyMeasurement = new DailyMeasurement();
+                var dailyMeasurement = new DailyMeasurement(
+                    request.DailyMeasurement.Date,
+                    request.DailyMeasurement.Weight,
+                    request.DailyMeasurement.Description);
                 
                 _context.DailyMeasurements.Add(dailyMeasurement);
                 

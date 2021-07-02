@@ -40,7 +40,9 @@ namespace Comeback.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var dailyMeasurement = await _context.DailyMeasurements.SingleAsync(x => x.DailyMeasurementId == request.DailyMeasurement.DailyMeasurementId);
-                
+
+                dailyMeasurement.Update(request.DailyMeasurement.Description);
+
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new Response()

@@ -8,6 +8,7 @@ namespace Comeback.Api.Interfaces
     public interface IComebackDbContext
     {
         DbSet<DailyMeasurement> DailyMeasurements { get; }
+        DbSet<Goal> Goals { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

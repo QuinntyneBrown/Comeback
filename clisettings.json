@@ -1,4 +1,8 @@
 {
+  "projects": null,
+  "path": "C:\\Projects\\Comeback",
+  "solutionName": null,
+  "rootNamespace": null,
   "domainNamespace": "Comeback.Api",
   "applicationNamespace": "Comeback.Api",
   "infrastructureNamespace": "Comeback.Api",
@@ -7,11 +11,23 @@
   "applicationDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
   "infrastructureDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
   "apiDirectory": "C:\\Projects\\Comeback\\src\\Comeback.Api",
-  "appDirectories": [ "C:\\Projects\\Comeback\\src\\Comeback.App" ],
-  "path": "C:\\Projects\\Comeback",
-  "dbContext": "ComebackDbContext",
+  "appDirectories": [
+    "C:\\Projects\\Comeback\\src\\Comeback.App"
+  ],
+  "buildingBlocksCoreNamespace": "BuildingBlocks.Core",
+  "buildingBlocksEventStoreNamespace": "BuildingBlocks.EventStore",
+  "store": null,
+  "namespace": null,
+  "domain": null,
+  "core": null,
+  "api": null,
+  "entityIdDataType": null,
   "sourceFolder": "src",
+  "testFolder": null,
+  "dbContext": "ComebackDbContext",
+  "eventSourcing": false,
   "resources": [
-    "DailyMeasurement"
+    "DailyMeasurement",
+    "Goal"
   ]
 }

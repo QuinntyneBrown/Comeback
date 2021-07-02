@@ -9,7 +9,10 @@ namespace Comeback.Api.Features
         {
             return new ()
             {
-                DailyMeasurementId = dailyMeasurement.DailyMeasurementId
+                DailyMeasurementId = dailyMeasurement.DailyMeasurementId,
+                Date = dailyMeasurement.Date,
+                Weight = dailyMeasurement.Weight,
+                Description = dailyMeasurement.Description
             };
         }
         

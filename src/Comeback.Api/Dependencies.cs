@@ -55,7 +55,8 @@ namespace Comeback.Api
 
             services.AddDbContext<ComebackDbContext>(options =>
             {
-                options.UseInMemoryDatabase(nameof(Comeback.Api))
+                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"],
+                    builder => builder.MigrationsAssembly("Comeback.Api").EnableRetryOnFailure())
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();
             });

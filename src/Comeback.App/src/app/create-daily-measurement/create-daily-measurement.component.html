@@ -1,0 +1,7 @@
+<h1>Create Daily Measurement</h1>
+
+<app-daily-measurement-editor [formControl]="formControl"></app-daily-measurement-editor>
+<div class="g-button-group">
+  <button class="g-button" mat-raised-button>Cancel</button>
+  <button class="g-button" mat-raised-button (click)="save(formControl.value)">Save</button>
+</div>
