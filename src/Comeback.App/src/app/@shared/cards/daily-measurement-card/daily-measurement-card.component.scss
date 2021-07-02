@@ -1,0 +1,13 @@
+// @use '../cards';
+
+:host {
+  // @extend .card;
+
+  .button-group {
+
+  }
+  button {
+    margin-left: auto;
+    display: inline-block;
+  }
+}

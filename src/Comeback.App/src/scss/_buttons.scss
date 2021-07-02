@@ -1,8 +1,11 @@
 .g-button-group {
   display: flex;
   gap:30px;
+  margin-bottom: 30px;
 }
 
 button.g-button {
+  display: block;
   min-width: 108px;
+  margin-bottom: 30px;
 }

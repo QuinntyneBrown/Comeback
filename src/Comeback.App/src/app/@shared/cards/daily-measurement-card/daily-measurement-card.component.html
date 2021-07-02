@@ -1,1 +1,19 @@
-<p>daily-measurement-card works!</p>
+<mat-card>
+
+  <button mat-icon-button (click)="$event.stopPropagation()">
+    <mat-icon >
+      delete
+    </mat-icon>
+  </button>
+
+
+  <mat-card-title>
+    {{ dailyMeasurement.weight }}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ dailyMeasurement.date | date : 'longDate' }}
+  </mat-card-subtitle>
+
+
+
+</mat-card>
