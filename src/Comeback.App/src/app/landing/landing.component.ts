@@ -27,4 +27,8 @@ export class LandingComponent  {
     this._router.navigate(['create']);
   }
 
+  createGoal(): void {
+    this._router.navigate(['create-goal']);
+  }
+
 }

@@ -10,6 +10,7 @@ namespace Comeback.Api.Features
             return new ()
             {
                 GoalId = goal.GoalId,
+                Name = goal.Name,
                 Date = goal.Date,
                 Weight = goal.Weight,
                 Description = goal.Description,

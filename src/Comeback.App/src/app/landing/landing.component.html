@@ -1,11 +1,21 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <button class="g-button" mat-raised-button (click)="create()" color="primary">Create</button>
+  <div class="g-button-group">
+    <button class="g-button" mat-raised-button (click)="create()" color="primary">Create Daily Measurement</button>
+    <button class="g-button" mat-raised-button (click)="createGoal()" color="primary">Create Goal</button>
+  </div>
+
+  <h2>Daily Measurements</h2>
 
   <div class="g-grid">
+
     <app-daily-measurement-card *ngFor="let dailyMeasurement of vm.dailyMeasurements" [dailyMeasurement]="dailyMeasurement">
 
     </app-daily-measurement-card>
+
   </div>
+
+  <h2>Goals</h2>
+
 
 </ng-container>

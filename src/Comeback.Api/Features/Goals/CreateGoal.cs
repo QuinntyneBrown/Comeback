@@ -40,6 +40,7 @@ namespace Comeback.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var goal = new Goal(
+                    request.Goal.Name,
                     request.Goal.Date,
                     request.Goal.Weight,
                     request.Goal.Description);
@@ -48,7 +49,7 @@ namespace Comeback.Api.Features
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     Goal = goal.ToDto()
                 };

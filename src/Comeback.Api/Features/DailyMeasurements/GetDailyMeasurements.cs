@@ -29,7 +29,9 @@ namespace Comeback.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new () {
-                    DailyMeasurements = await _context.DailyMeasurements.Select(x => x.ToDto()).ToListAsync()
+                    DailyMeasurements = await _context.DailyMeasurements
+                    .OrderByDescending(x => x.Date)
+                    .Select(x => x.ToDto()).ToListAsync()
                 };
             }
             

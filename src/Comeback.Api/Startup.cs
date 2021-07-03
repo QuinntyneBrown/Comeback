@@ -34,7 +34,7 @@ namespace Comeback.Api
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comeback.Api.Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comeback.Api");
                 c.RoutePrefix = string.Empty;
             });
         }
