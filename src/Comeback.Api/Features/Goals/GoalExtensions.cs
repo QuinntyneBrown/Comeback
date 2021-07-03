@@ -7,7 +7,7 @@ namespace Comeback.Api.Features
     {
         public static GoalDto ToDto(this Goal goal)
         {
-            return new ()
+            return new()
             {
                 GoalId = goal.GoalId,
                 Name = goal.Name,
@@ -17,6 +17,6 @@ namespace Comeback.Api.Features
                 Status = goal.Status
             };
         }
-        
+
     }
 }

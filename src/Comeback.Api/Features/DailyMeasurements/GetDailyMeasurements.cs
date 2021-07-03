@@ -12,29 +12,30 @@ namespace Comeback.Api.Features
 {
     public class GetDailyMeasurements
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<DailyMeasurementDto> DailyMeasurements { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IComebackDbContext _context;
-        
+
             public Handler(IComebackDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     DailyMeasurements = await _context.DailyMeasurements
                     .OrderByDescending(x => x.Date)
                     .Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }

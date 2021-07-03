@@ -10,33 +10,33 @@ namespace Comeback.Api.Features
 {
     public class AchieveGoal
     {
-        public class Validator: AbstractValidator<Request>
+        public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
                 RuleFor(request => request.Goal).NotNull();
                 RuleFor(request => request.Goal).SetValidator(new GoalValidator());
             }
-        
+
         }
 
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public GoalDto Goal { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public GoalDto Goal { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IComebackDbContext _context;
-        
+
             public Handler(IComebackDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var goal = await _context.Goals.SingleAsync(x => x.GoalId == request.Goal.GoalId);
@@ -44,13 +44,13 @@ namespace Comeback.Api.Features
                 goal.Achieved();
 
                 await _context.SaveChangesAsync(cancellationToken);
-                
+
                 return new Response()
                 {
                     Goal = goal.ToDto()
                 };
             }
-            
+
         }
     }
 }

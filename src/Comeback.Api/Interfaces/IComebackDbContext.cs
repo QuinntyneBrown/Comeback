@@ -10,6 +10,6 @@ namespace Comeback.Api.Interfaces
         DbSet<DailyMeasurement> DailyMeasurements { get; }
         DbSet<Goal> Goals { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

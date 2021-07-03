@@ -7,7 +7,7 @@ namespace Comeback.Api.Features
     {
         public static DailyMeasurementDto ToDto(this DailyMeasurement dailyMeasurement)
         {
-            return new ()
+            return new()
             {
                 DailyMeasurementId = dailyMeasurement.DailyMeasurementId,
                 Date = dailyMeasurement.Date,
@@ -15,6 +15,6 @@ namespace Comeback.Api.Features
                 Description = dailyMeasurement.Description
             };
         }
-        
+
     }
 }
