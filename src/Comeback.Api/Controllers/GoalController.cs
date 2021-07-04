@@ -32,6 +32,37 @@ namespace Comeback.Api.Controllers
             return response;
         }
 
+        [HttpGet("type/{type}", Name = "GetGoalByTypeRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetGoalsByType.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetGoalsByType.Response>> GetByType([FromRoute] GetGoalsByType.Request request)
+        {
+            return await _mediator.Send(request);
+        }
+
+        [HttpGet("today", Name = "GetGoalTodayRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetGoalByDate.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetGoalByDate.Response>> GetToday()
+        {
+            return await _mediator.Send(new GetGoalByDate.Request());
+        }
+
+        [HttpGet("date/{date}", Name = "GetGoalByDateRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetGoalByDate.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetGoalByDate.Response>> GetByDate([FromRoute] GetGoalByDate.Request request)
+        {
+            return await _mediator.Send(request);
+        }
+
+
         [HttpGet(Name = "GetGoalsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

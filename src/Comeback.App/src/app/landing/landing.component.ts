@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DailyMeasurementService, GoalService } from '@api';
 import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -13,13 +13,19 @@ export class LandingComponent  {
 
   public vm$ = forkJoin([
     this._dailyMeasurementService.get(),
-    this._goalService.get()
+    this._goalService.get(),
+    this._goalService.getToday(),
+    this._dailyMeasurementService.getToday()
   ])
   .pipe(
-    map(([dailyMeasurements, goals]) => ({
+    map(([dailyMeasurements, goals, goalToday, dailyMeasurementToday]) => ({
       dailyMeasurements,
-      goals
-    }))
+      goals,
+      goalToday,
+      dailyMeasurementToday
+    })),
+    tap(x => console.log(x))
+
   );
 
   constructor(

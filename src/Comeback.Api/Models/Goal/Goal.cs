@@ -10,6 +10,7 @@ namespace Comeback.Api.Models
         public string Description { get; private set; }
         public DateTime Date { get; private set; }
         public GoalStatus Status { get; private set; }
+        public GoalType Type { get; private set; } = GoalType.Incremental;
         public Goal(string name, DateTime date, decimal weight, string description)
         {
             Name = name;
@@ -22,6 +23,11 @@ namespace Comeback.Api.Models
         public void SetDescription(string description)
         {
             Description = description;
+        }
+
+        public void SetType(GoalType type)
+        {
+            Type = type;
         }
 
         public void SetName(string name)
@@ -38,6 +44,7 @@ namespace Comeback.Api.Models
         private Goal()
         {
 
-        }
+        } 
+
     }
 }

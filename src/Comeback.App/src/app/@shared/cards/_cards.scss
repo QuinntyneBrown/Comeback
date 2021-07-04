@@ -8,6 +8,7 @@
   mat-card {
     display: grid;
     grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr 1fr 1fr;
     height: 100%;
     box-sizing: border-box;
     min-height: 200px;

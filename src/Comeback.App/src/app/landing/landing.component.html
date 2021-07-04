@@ -5,15 +5,11 @@
     <button class="g-button" mat-raised-button (click)="createGoal()" color="primary">Create Goal</button>
   </div>
 
-  <h2>Goals</h2>
+  <h2>Today</h2>
 
-  <div class="g-grid">
+  <app-goal-by-date-card [goal]="vm.goalToday" [dailyMeasurement]="vm.dailyMeasurementToday">
 
-    <app-goal-card *ngFor="let goal of vm.goals" [goal]="goal">
-
-    </app-goal-card>
-
-  </div>
+  </app-goal-by-date-card>
 
   <h2>Daily Measurements</h2>
 
@@ -24,6 +20,18 @@
     </app-daily-measurement-card>
 
   </div>
+
+  <h2>Goals</h2>
+
+  <div class="g-grid">
+
+    <app-goal-card *ngFor="let goal of vm.goals" [goal]="goal">
+
+    </app-goal-card>
+
+  </div>
+
+
 
 
 

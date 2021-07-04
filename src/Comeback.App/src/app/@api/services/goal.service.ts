@@ -23,6 +23,13 @@ export class GoalService implements IPagableService<Goal> {
     return this._client.get<EntityPage<Goal>>(`${this._baseUrl}api/goal/page/${options.pageSize}/${options.pageIndex}`)
   }
 
+  public getToday(): Observable<Goal> {
+    return this._client.get<{ goal: Goal }>(`${this._baseUrl}api/goal/today`)
+      .pipe(
+        map(x => x.goal)
+      );
+  }
+
   public get(): Observable<Goal[]> {
     return this._client.get<{ goals: Goal[] }>(`${this._baseUrl}api/goal`)
       .pipe(
@@ -44,7 +51,7 @@ export class GoalService implements IPagableService<Goal> {
   public create(options: { goal: Goal }): Observable<{ goal: Goal }> {
     return this._client.post<{ goal: Goal }>(`${this._baseUrl}api/goal`, { goal: options.goal });
   }
-  
+
   public update(options: { goal: Goal }): Observable<{ goal: Goal }> {
     return this._client.put<{ goal: Goal }>(`${this._baseUrl}api/goal`, { goal: options.goal });
   }

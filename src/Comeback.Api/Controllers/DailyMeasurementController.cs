@@ -15,6 +15,26 @@ namespace Comeback.Api.Controllers
         public DailyMeasurementController(IMediator mediator)
             => _mediator = mediator;
 
+        [HttpGet("today", Name = "GetDailyMeasurementTodayRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetDailyMeasurementByDate.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetDailyMeasurementByDate.Response>> GetToday()
+        {
+            return await _mediator.Send(new GetDailyMeasurementByDate.Request());
+        }
+
+        [HttpGet("date/{date}", Name = "GetDailyMeasurementByDateRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetDailyMeasurementByDate.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetDailyMeasurementByDate.Response>> GetByDate([FromRoute] GetDailyMeasurementByDate.Request request)
+        {
+            return await _mediator.Send(request);
+        }
+
         [HttpGet("{dailyMeasurementId}", Name = "GetDailyMeasurementByIdRoute")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

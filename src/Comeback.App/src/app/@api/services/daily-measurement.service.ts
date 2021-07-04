@@ -19,6 +19,13 @@ export class DailyMeasurementService implements IPagableService<DailyMeasurement
     private readonly _client: HttpClient
   ) { }
 
+  public getToday(): Observable<DailyMeasurement> {
+    return this._client.get<{ dailyMeasurement: DailyMeasurement }>(`${this._baseUrl}api/dailyMeasurement/today`)
+      .pipe(
+        map(x => x.dailyMeasurement)
+      );
+  }
+
   getPage(options: { pageIndex: number; pageSize: number; }): Observable<EntityPage<DailyMeasurement>> {
     return this._client.get<EntityPage<DailyMeasurement>>(`${this._baseUrl}api/dailyMeasurement/page/${options.pageSize}/${options.pageIndex}`)
   }
@@ -44,7 +51,7 @@ export class DailyMeasurementService implements IPagableService<DailyMeasurement
   public create(options: { dailyMeasurement: DailyMeasurement }): Observable<{ dailyMeasurement: DailyMeasurement }> {
     return this._client.post<{ dailyMeasurement: DailyMeasurement }>(`${this._baseUrl}api/dailyMeasurement`, { dailyMeasurement: options.dailyMeasurement });
   }
-  
+
   public update(options: { dailyMeasurement: DailyMeasurement }): Observable<{ dailyMeasurement: DailyMeasurement }> {
     return this._client.put<{ dailyMeasurement: DailyMeasurement }>(`${this._baseUrl}api/dailyMeasurement`, { dailyMeasurement: options.dailyMeasurement });
   }

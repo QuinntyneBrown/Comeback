@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
 import { MatButtonModule } from '@angular/material/button';
-import { DailyMeasurementCardModule, GoalCardModule } from '@shared';
+import { DailyMeasurementCardModule, GoalByDateCardModule, GoalCardModule } from '@shared';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { DailyMeasurementCardModule, GoalCardModule } from '@shared';
     LandingRoutingModule,
     MatButtonModule,
     DailyMeasurementCardModule,
-    GoalCardModule
+    GoalCardModule,
+    GoalByDateCardModule
   ]
 })
 export class LandingModule { }

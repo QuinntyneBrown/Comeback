@@ -3,4 +3,7 @@
 :host {
   @extend .page;
 
+  app-goal-by-date-card {
+    margin-bottom: 30px;
+  }
 }
