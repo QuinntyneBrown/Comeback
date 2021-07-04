@@ -10,6 +10,7 @@
     grid-template-columns: 1fr auto;
     height: 100%;
     box-sizing: border-box;
+    min-height: 200px;
   }
 
   mat-icon {
@@ -23,7 +24,8 @@
   }
 
   mat-card-title,
-  mat-card-subtitle {
+  mat-card-subtitle,
+  mat-card-content {
     grid-column: 1/2;
   }
 }

@@ -6,6 +6,7 @@ import { CreateGoalComponent } from './create-goal.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { GoalEditorModule } from '@shared';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { GoalEditorModule } from '@shared';
     CreateGoalRoutingModule,
     MatCardModule,
     MatButtonModule,
-    GoalEditorModule
+    GoalEditorModule,
+    ReactiveFormsModule
   ]
 })
 export class CreateGoalModule { }

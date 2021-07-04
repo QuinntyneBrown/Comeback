@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DailyMeasurementService, GoalService } from '@api';
+import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -10,10 +11,14 @@ import { map } from 'rxjs/operators';
 })
 export class LandingComponent  {
 
-  public vm$ = this._dailyMeasurementService.get()
+  public vm$ = forkJoin([
+    this._dailyMeasurementService.get(),
+    this._goalService.get()
+  ])
   .pipe(
-    map(dailyMeasurements => ({
-      dailyMeasurements
+    map(([dailyMeasurements, goals]) => ({
+      dailyMeasurements,
+      goals
     }))
   );
 

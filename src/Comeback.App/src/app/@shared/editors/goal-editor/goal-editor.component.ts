@@ -17,20 +17,23 @@ import { fromEvent, Subject } from 'rxjs';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => GoalEditorComponent),
       multi: true
-    }       
+    }
   ]
 })
 export class GoalEditorComponent implements ControlValueAccessor,  Validator, OnDestroy  {
   private readonly _destroyed$: Subject<void> = new Subject();
-  
+
   public form = new FormGroup({
     name: new FormControl(null, [Validators.required]),
+    date: new FormControl(null, [Validators.required]),
+    weight: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, []),
   });
 
   constructor(
     private readonly _elementRef: ElementRef
   ) { }
-  
+
   validate(control: AbstractControl): ValidationErrors | null {
       return this.form.valid ? null
       : Object.keys(this.form.controls).reduce(
@@ -48,13 +51,13 @@ export class GoalEditorComponent implements ControlValueAccessor,  Validator, On
           {}
         );
   }
-    
-  writeValue(obj: any): void {   
+
+  writeValue(obj: any): void {
     if(obj == null) {
       this.form.reset();
     }
     else {
-        this.form.patchValue(obj, { emitEvent: false });    
+        this.form.patchValue(obj, { emitEvent: false });
     }
   }
 

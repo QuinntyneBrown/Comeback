@@ -3,10 +3,10 @@
     Create Goal
   </mat-card-title>
 
-  <app-goal-editor></app-goal-editor>
+  <app-goal-editor [formControl]="formControl"></app-goal-editor>
 
   <div class="g-button-group">
-    <button class="g-button" mat-raised-button>Cancel</button>
-    <button class="g-button" mat-raised-button>Save</button>
+    <button class="g-button" mat-raised-button (click)="cancel()">Cancel</button>
+    <button class="g-button" mat-raised-button (click)="save(formControl.value)">Save</button>
   </div>
 </mat-card>
