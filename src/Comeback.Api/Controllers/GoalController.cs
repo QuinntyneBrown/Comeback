@@ -52,6 +52,16 @@ namespace Comeback.Api.Controllers
             return await _mediator.Send(new GetGoalByDate.Request());
         }
 
+        [HttpGet("relative", Name = "GetGoalRelativeRoute")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetGoalRelative.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetGoalRelative.Response>> GetRelative()
+        {
+            return await _mediator.Send(new GetGoalRelative.Request());
+        }
+
         [HttpGet("date/{date}", Name = "GetGoalByDateRoute")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
