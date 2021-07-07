@@ -9,7 +9,8 @@ namespace Comeback.Api.Features
 {
     public class GetDailyMeasurementByDate
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public DateTime Date { get; set; } = DateTime.UtcNow.Date;
         }
 
@@ -22,12 +23,15 @@ namespace Comeback.Api.Features
         {
             private readonly IComebackDbContext _context;
 
-            public Handler(IComebackDbContext context){
+            public Handler(IComebackDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new () { 
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
+                return new()
+                {
                     DailyMeasurement = _context.DailyMeasurements
                     .Where(x => x.Date.Date == request.Date)
                     .Select(x => x.ToDto()).FirstOrDefault()

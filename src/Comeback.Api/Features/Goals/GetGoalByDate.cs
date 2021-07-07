@@ -10,7 +10,8 @@ namespace Comeback.Api.Features
 {
     public class GetGoalByDate
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public DateTime Date { get; set; } = DateTime.UtcNow.Date;
         }
 
@@ -23,17 +24,20 @@ namespace Comeback.Api.Features
         {
             private readonly IComebackDbContext _context;
 
-            public Handler(IComebackDbContext context){
+            public Handler(IComebackDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var measurement = _context.DailyMeasurements.FirstOrDefault();
 
                 var days = Truncate(Convert.ToDecimal((request.Date - measurement.Date).TotalDays + 1));
 
-			    return new () { 
+                return new()
+                {
                     Goal = new GoalDto
                     {
                         Name = "Date",

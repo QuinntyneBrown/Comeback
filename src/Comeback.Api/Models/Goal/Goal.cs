@@ -44,7 +44,7 @@ namespace Comeback.Api.Models
         private Goal()
         {
 
-        } 
+        }
 
     }
 }

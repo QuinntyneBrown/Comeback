@@ -5,7 +5,7 @@ namespace Comeback.Api.Migrations
     public partial class AddGoalType : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {            
+        {
             migrationBuilder.AddColumn<int>(
                 name: "Type",
                 table: "Goals",

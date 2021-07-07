@@ -10,7 +10,8 @@ namespace Comeback.Api.Features
 {
     public class GetGoalsByType
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public GoalType Type { get; set; }
         }
 
@@ -23,12 +24,15 @@ namespace Comeback.Api.Features
         {
             private readonly IComebackDbContext _context;
 
-            public Handler(IComebackDbContext context){
+            public Handler(IComebackDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new () { 
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
+                return new()
+                {
                     Goals = _context.Goals
                     .Where(x => x.Type == request.Type)
                     .Select(x => x.ToDto()).ToList()

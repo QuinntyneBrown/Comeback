@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Decimal;
 
 namespace Comeback.Api.Features
 {
@@ -21,24 +20,21 @@ namespace Comeback.Api.Features
         {
             private readonly IComebackDbContext _context;
 
-            public Handler(IComebackDbContext context){
+            public Handler(IComebackDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-
-                var last = _context.DailyMeasurements
-                    .OrderBy(x => x.Date)
-                    .Last();
-
-                var s = last.Date.Date == DateTime.UtcNow.AddDays(-1).Date;
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var measurement = _context.DailyMeasurements
                     .Where(x => x.Date.Date == DateTime.UtcNow.AddDays(-1).Date)
                     .Single();
 
-			    return new () { 
-                    Goal = new GoalDto
+                return new()
+                {
+                    Goal = new()
                     {
                         Name = "Relative",
                         Date = DateTime.UtcNow,
