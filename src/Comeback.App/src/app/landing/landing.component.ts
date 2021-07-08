@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DailyMeasurementService, GoalService } from '@api';
+import { DailyMeasurement, DailyMeasurementService, GoalService } from '@api';
 import { forkJoin } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -23,9 +23,7 @@ export class LandingComponent  {
       goals,
       goalToday,
       dailyMeasurementToday
-    })),
-    tap(x => console.log(x))
-
+    }))
   );
 
   constructor(
@@ -40,6 +38,10 @@ export class LandingComponent  {
 
   createGoal(): void {
     this._router.navigate(['create-goal']);
+  }
+
+  handleEditClick($event: DailyMeasurement) {
+    this._router.navigate(['edit',$event.dailyMeasurementId]);
   }
 
 }

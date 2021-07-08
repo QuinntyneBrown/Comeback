@@ -16,9 +16,9 @@ namespace Comeback.Api.Models
             Description = description;
         }
 
-        public void Update(string description)
+        public void Update(decimal weight, string description)
         {
-
+            Weight = weight;
             Description = description;
         }
 

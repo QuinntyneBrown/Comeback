@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DailyMeasurement } from '@api';
 
 @Component({
@@ -8,6 +8,9 @@ import { DailyMeasurement } from '@api';
 })
 export class DailyMeasurementCardComponent {
 
+  @Output() public deleteClick: EventEmitter<DailyMeasurement> = new EventEmitter();
+
+  @Output() public editClick: EventEmitter<DailyMeasurement> = new EventEmitter();
 
   @Input() public dailyMeasurement: DailyMeasurement;
 }

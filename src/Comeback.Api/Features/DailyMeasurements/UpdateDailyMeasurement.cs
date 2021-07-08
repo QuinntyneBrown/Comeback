@@ -41,11 +41,13 @@ namespace Comeback.Api.Features
             {
                 var dailyMeasurement = await _context.DailyMeasurements.SingleAsync(x => x.DailyMeasurementId == request.DailyMeasurement.DailyMeasurementId);
 
-                dailyMeasurement.Update(request.DailyMeasurement.Description);
+                dailyMeasurement.Update(
+                    request.DailyMeasurement.Weight,
+                    request.DailyMeasurement.Description);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     DailyMeasurement = dailyMeasurement.ToDto()
                 };

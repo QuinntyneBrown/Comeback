@@ -7,7 +7,7 @@
 
   <h2>Today</h2>
 
-  <app-goal-by-date-card [goal]="vm.goalToday" [dailyMeasurement]="vm.dailyMeasurementToday">
+  <app-goal-by-date-card [goal]="vm.goalToday" [dailyMeasurement]="vm.dailyMeasurementToday" (editClick)="handleEditClick($event)">
 
   </app-goal-by-date-card>
 

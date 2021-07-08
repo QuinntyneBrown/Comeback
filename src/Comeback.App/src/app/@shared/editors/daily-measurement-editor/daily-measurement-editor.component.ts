@@ -24,6 +24,7 @@ export class DailyMeasurementEditorComponent implements ControlValueAccessor,  V
   private readonly _destroyed$: Subject<void> = new Subject();
 
   public form = new FormGroup({
+    dailyMeasurementId: new FormControl(null, []),
     date: new FormControl(null, [Validators.required]),
     weight: new FormControl(null, [Validators.required]),
   });

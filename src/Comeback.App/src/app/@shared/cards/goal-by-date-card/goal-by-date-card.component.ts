@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DailyMeasurement, Goal } from '@api';
 
 @Component({
@@ -7,6 +7,8 @@ import { DailyMeasurement, Goal } from '@api';
   styleUrls: ['./goal-by-date-card.component.scss']
 })
 export class GoalByDateCardComponent {
+
+  @Output() public editClick: EventEmitter<DailyMeasurement> = new EventEmitter();
 
   @Input() public goal: Goal;
 

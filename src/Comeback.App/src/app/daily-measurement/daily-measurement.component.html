@@ -1,0 +1,13 @@
+<mat-card *ngIf="vm$ | async as vm">
+  <mat-card-title *ngIf="!vm.formControl.value.dailyMeasurementId">
+    Create Daily Measurement
+  </mat-card-title>
+  <mat-card-title *ngIf="vm.formControl.value.dailyMeasurementId">
+    Edit Daily Measurement
+  </mat-card-title>
+  <app-daily-measurement-editor [formControl]="vm.formControl"></app-daily-measurement-editor>
+  <div class="g-button-group">
+    <button class="g-button" mat-raised-button (click)="cancel()">Cancel</button>
+    <button class="g-button" mat-raised-button (click)="save(vm.formControl.value)">Save</button>
+  </div>
+</mat-card>

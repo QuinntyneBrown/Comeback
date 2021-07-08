@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateDailyMeasurementComponent } from './create-daily-measurement.component';
+import { CreateDailyMeasurementComponent } from './daily-measurement.component';
 
 const routes: Routes = [{ path: '', component: CreateDailyMeasurementComponent }];
 
