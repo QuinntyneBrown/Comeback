@@ -23,7 +23,7 @@ export class CreateDailyMeasurementComponent implements OnDestroy  {
     map(paramMap => paramMap.get("id")),
     switchMap(dailyMeasurementId => {
       return dailyMeasurementId ? this._dailyMeasurementService.getById({ dailyMeasurementId })
-        : of(null);
+        : of({});
     }),
     map(dailyMeasurement => {
       return {
