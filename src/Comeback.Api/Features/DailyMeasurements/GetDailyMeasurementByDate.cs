@@ -11,7 +11,7 @@ namespace Comeback.Api.Features
     {
         public class Request : IRequest<Response>
         {
-            public DateTime Date { get; set; } = DateTime.UtcNow.Date;
+            public DateTime Date { get; set; } = DateTime.Now.Date;
         }
 
         public class Response
