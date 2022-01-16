@@ -23,7 +23,7 @@ import { fromEvent, Subject } from 'rxjs';
 export class DailyMeasurementEditorComponent implements ControlValueAccessor,  Validator, OnDestroy  {
   private readonly _destroyed$: Subject<void> = new Subject();
 
-  public form = new FormGroup({
+  readonly form = new FormGroup({
     dailyMeasurementId: new FormControl(null, []),
     date: new FormControl(null, [Validators.required]),
     weight: new FormControl(null, [Validators.required]),
@@ -61,7 +61,11 @@ export class DailyMeasurementEditorComponent implements ControlValueAccessor,  V
   }
 
   registerOnChange(fn: any): void {
-    this.form.valueChanges.subscribe(fn);
+    this.form.valueChanges
+    .pipe(
+      takeUntil(this._destroyed$)
+    )
+    .subscribe(fn);
   }
 
   registerOnTouched(fn: any): void {

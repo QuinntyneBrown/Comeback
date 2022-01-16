@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DailyMeasurement, DailyMeasurementService, GoalService } from '@api';
-import { forkJoin } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -11,7 +11,7 @@ import { map, tap } from 'rxjs/operators';
 })
 export class LandingComponent  {
 
-  public vm$ = forkJoin([
+  readonly vm$ = combineLatest([
     this._dailyMeasurementService.get(),
     this._goalService.get(),
     this._goalService.getToday(),
@@ -37,7 +37,7 @@ export class LandingComponent  {
   }
 
   createGoal(): void {
-    this._router.navigate(['create-goal']);
+    this._router.navigate(['goal','create']);
   }
 
   handleEditClick($event: DailyMeasurement) {

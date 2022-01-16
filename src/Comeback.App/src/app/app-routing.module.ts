@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
   { path: 'create', loadChildren: () => import('./daily-measurement/daily-measurement.module').then(m => m.DailyMeasurementModule) },
   { path: 'edit/:id', loadChildren: () => import('./daily-measurement/daily-measurement.module').then(m => m.DailyMeasurementModule) },
-  { path: 'create-goal', loadChildren: () => import('./create-goal/create-goal.module').then(m => m.CreateGoalModule) }];
+  { path: 'goal/create', loadChildren: () => import('./create-goal/create-goal.module').then(m => m.CreateGoalModule) }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

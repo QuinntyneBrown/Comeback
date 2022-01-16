@@ -42,7 +42,7 @@ namespace Comeback.Api.Features
                     {
                         Name = "Date",
                         Date = DateTime.UtcNow,
-                        Weight = measurement.Weight - days * 0.5m
+                        Weight = measurement.Weight - days * 0.4m
                     }
                 };
             }
