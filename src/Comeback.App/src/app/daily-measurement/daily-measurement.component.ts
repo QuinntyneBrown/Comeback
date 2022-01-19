@@ -14,15 +14,12 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 })
 export class CreateDailyMeasurementComponent extends Destroyable  {
   
-  formControl = new FormControl();
+  readonly formControl = new FormControl();
 
-  vm$ = this._activatedRoute.paramMap
+  readonly vm$ = this._activatedRoute.paramMap
   .pipe(
     map(paramMap => paramMap.get("id")),
-    switchMap(dailyMeasurementId => {
-      return dailyMeasurementId ? this._dailyMeasurementService.getById({ dailyMeasurementId })
-        : of(null);
-    }),
+    switchMap(dailyMeasurementId => dailyMeasurementId ? this._dailyMeasurementService.getById({ dailyMeasurementId }) : of(null)),
     map(dailyMeasurement => {
       return {
         formControl: new FormControl(dailyMeasurement,[])

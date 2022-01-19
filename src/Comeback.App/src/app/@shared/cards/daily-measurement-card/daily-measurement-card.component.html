@@ -2,13 +2,13 @@
 
   <div class="button-group">
 
-    <button mat-icon-button (click)="editClick.emit(dailyMeasurement); $event.stopPropagation()">
+    <button mat-icon-button (click)="edit.emit(dailyMeasurement); $event.stopPropagation()">
       <mat-icon >
         edit
       </mat-icon>
     </button>
 
-    <button mat-icon-button (click)="deleteClick.emit(dailyMeasurement); $event.stopPropagation()">
+    <button mat-icon-button (click)="delete.emit(dailyMeasurement)">
       <mat-icon >
         delete
       </mat-icon>

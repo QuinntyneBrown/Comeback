@@ -8,9 +8,9 @@ import { DailyMeasurement } from '@api';
 })
 export class DailyMeasurementCardComponent {
 
-  @Output() public deleteClick: EventEmitter<DailyMeasurement> = new EventEmitter();
+  @Output() readonly delete: EventEmitter<DailyMeasurement> = new EventEmitter();
 
-  @Output() public editClick: EventEmitter<DailyMeasurement> = new EventEmitter();
+  @Output() readonly edit: EventEmitter<DailyMeasurement> = new EventEmitter();
 
-  @Input() public dailyMeasurement: DailyMeasurement;
+  @Input() dailyMeasurement: DailyMeasurement;
 }

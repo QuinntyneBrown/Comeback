@@ -40,8 +40,14 @@ export class LandingComponent  {
     this._router.navigate(['goal','create']);
   }
 
-  handleEditClick($event: DailyMeasurement) {
+  handleEdit($event: DailyMeasurement) {
     this._router.navigate(['edit',$event.dailyMeasurementId]);
   }
 
+  handleDelete(dailyMeasurement: DailyMeasurement) {
+    alert("?");
+
+    this._dailyMeasurementService.remove({ dailyMeasurement })
+    .subscribe();
+  }
 }

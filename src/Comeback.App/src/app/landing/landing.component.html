@@ -15,7 +15,11 @@
 
   <div class="g-grid">
 
-    <app-daily-measurement-card *ngFor="let dailyMeasurement of vm.dailyMeasurements" [dailyMeasurement]="dailyMeasurement">
+    <app-daily-measurement-card 
+    (delete)="handleDelete(dailyMeasurement)" 
+    (edit)="handleEdit(dailyMeasurement)"
+    *ngFor="let dailyMeasurement of vm.dailyMeasurements" 
+    [dailyMeasurement]="dailyMeasurement">
 
     </app-daily-measurement-card>
 
