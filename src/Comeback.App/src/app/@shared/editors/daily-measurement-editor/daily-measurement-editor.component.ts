@@ -85,7 +85,7 @@ export class DailyMeasurementEditorComponent implements ControlValueAccessor,  V
     isDisabled ? this.form.disable() : this.form.enable();
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();
   }
