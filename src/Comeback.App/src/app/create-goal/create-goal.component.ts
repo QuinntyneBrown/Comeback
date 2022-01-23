@@ -13,14 +13,14 @@ import { takeUntil, tap } from 'rxjs/operators';
 export class CreateGoalComponent {
 
   private readonly _destroyed$: Subject<void> = new Subject();
-  public readonly formControl: FormControl = new FormControl();
+  readonly formControl: FormControl = new FormControl();
 
   constructor(
     private readonly _goalService: GoalService,
     private readonly _navigationService: NavigationService
   ) { }
 
-  public save(goal: Goal): void {
+  save(goal: Goal): void {
     this._goalService.create({
       goal
     })
@@ -31,7 +31,7 @@ export class CreateGoalComponent {
     .subscribe();
   }
 
-  public cancel() {
+  cancel() {
     this._navigationService.redirectToDefault()
   }
 }

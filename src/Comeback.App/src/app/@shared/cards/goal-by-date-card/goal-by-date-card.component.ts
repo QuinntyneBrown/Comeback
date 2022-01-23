@@ -8,10 +8,10 @@ import { DailyMeasurement, Goal } from '@api';
 })
 export class GoalByDateCardComponent {
 
-  @Output() public editClick: EventEmitter<DailyMeasurement> = new EventEmitter();
+  @Output() editClick: EventEmitter<DailyMeasurement> = new EventEmitter();
 
-  @Input() public goal: Goal;
+  @Input() goal: Goal;
 
-  @Input() public dailyMeasurement: DailyMeasurement;
+  @Input() dailyMeasurement: DailyMeasurement;
 
 }

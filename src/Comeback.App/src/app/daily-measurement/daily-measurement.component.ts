@@ -27,7 +27,7 @@ export class CreateDailyMeasurementComponent  {
   readonly vm$ = combineLatest([
     this._activatedRoute.paramMap,
     this._cancel$.pipe(tap(_ => this._navigationService.redirectToDefault()), startWith(null)),
-    this._save$.pipe(switchMap(d => this._handleSave(d)), startWith(null))    
+    this._save$.pipe(switchMap(dailyMeasurement => this._handleSave(dailyMeasurement)), startWith(null))    
   ]) 
   .pipe(
     map(([paramMap]) => paramMap.get("id")),

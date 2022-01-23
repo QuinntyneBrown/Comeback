@@ -23,7 +23,7 @@ import { fromEvent, Subject } from 'rxjs';
 export class GoalEditorComponent implements ControlValueAccessor,  Validator, OnDestroy  {
   private readonly _destroyed$: Subject<void> = new Subject();
 
-  public form = new FormGroup({
+  readonly form = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     date: new FormControl(null, [Validators.required]),
     weight: new FormControl(null, [Validators.required]),
@@ -82,7 +82,7 @@ export class GoalEditorComponent implements ControlValueAccessor,  Validator, On
     isDisabled ? this.form.disable() : this.form.enable();
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();
   }

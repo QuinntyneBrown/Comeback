@@ -7,5 +7,5 @@ import { Goal } from '@api';
   styleUrls: ['./goal-card.component.scss']
 })
 export class GoalCardComponent  {
-  @Input() public goal: Goal;
+  @Input() goal: Goal;
 }
