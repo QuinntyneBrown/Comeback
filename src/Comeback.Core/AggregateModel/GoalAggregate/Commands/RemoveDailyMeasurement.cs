@@ -15,37 +15,37 @@ using System;
 
 namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
 
- public class RemoveDailyMeasurementRequest : IRequest<RemoveDailyMeasurementResponse>
- {
-     public Guid DailyMeasurementId { get; set; }
- }
+public class RemoveDailyMeasurementRequest : IRequest<RemoveDailyMeasurementResponse>
+{
+    public Guid DailyMeasurementId { get; set; }
+}
 
- public class RemoveDailyMeasurementResponse : ResponseBase
- {
-     public DailyMeasurementDto DailyMeasurement { get; set; }
- }
+public class RemoveDailyMeasurementResponse : ResponseBase
+{
+    public DailyMeasurementDto DailyMeasurement { get; set; }
+}
 
- public class RemoveDailyMeasurementHandler : IRequestHandler<RemoveDailyMeasurementRequest, RemoveDailyMeasurementResponse>
- {
-     private readonly IComebackDbContext _context;
+public class RemoveDailyMeasurementHandler : IRequestHandler<RemoveDailyMeasurementRequest, RemoveDailyMeasurementResponse>
+{
+    private readonly IComebackDbContext _context;
 
-     public RemoveDailyMeasurementHandler(IComebackDbContext context)
-         => _context = context;
+    public RemoveDailyMeasurementHandler(IComebackDbContext context)
+        => _context = context;
 
-     public async Task<RemoveDailyMeasurementResponse> Handle(RemoveDailyMeasurementRequest request, CancellationToken cancellationToken)
-     {
-         var dailyMeasurement = await _context.DailyMeasurements.SingleAsync(x => x.DailyMeasurementId == request.DailyMeasurementId);
+    public async Task<RemoveDailyMeasurementResponse> Handle(RemoveDailyMeasurementRequest request, CancellationToken cancellationToken)
+    {
+        var dailyMeasurement = await _context.DailyMeasurements.SingleAsync(x => x.DailyMeasurementId == request.DailyMeasurementId);
 
-         _context.DailyMeasurements.Remove(dailyMeasurement);
+        _context.DailyMeasurements.Remove(dailyMeasurement);
 
-         await _context.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
-         return new RemoveDailyMeasurementResponse()
-         {
-             DailyMeasurement = dailyMeasurement.ToDto()
-         };
-     }
+        return new RemoveDailyMeasurementResponse()
+        {
+            DailyMeasurement = dailyMeasurement.ToDto()
+        };
+    }
 
- }
+}
 
 

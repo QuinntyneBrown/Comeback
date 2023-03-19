@@ -15,50 +15,50 @@ using System;
 namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
 
 public class CreateGoalValidator : AbstractValidator<CreateGoalRequest>
- {
-     public CreateGoalValidator()
-     {
-         RuleFor(request => request.Goal).NotNull();
-         RuleFor(request => request.Goal).SetValidator(new GoalValidator());
-     }
+{
+    public CreateGoalValidator()
+    {
+        RuleFor(request => request.Goal).NotNull();
+        RuleFor(request => request.Goal).SetValidator(new GoalValidator());
+    }
 
- }
+}
 
- public class CreateGoalRequest : IRequest<CreateGoalResponse>
- {
-     public GoalDto Goal { get; set; }
- }
+public class CreateGoalRequest : IRequest<CreateGoalResponse>
+{
+    public GoalDto Goal { get; set; }
+}
 
- public class CreateGoalResponse : ResponseBase
- {
-     public GoalDto Goal { get; set; }
- }
+public class CreateGoalResponse : ResponseBase
+{
+    public GoalDto Goal { get; set; }
+}
 
- public class CreateGoalHandler : IRequestHandler<CreateGoalRequest, CreateGoalResponse>
- {
-     private readonly IComebackDbContext _context;
+public class CreateGoalHandler : IRequestHandler<CreateGoalRequest, CreateGoalResponse>
+{
+    private readonly IComebackDbContext _context;
 
-     public CreateGoalHandler(IComebackDbContext context)
-         => _context = context;
+    public CreateGoalHandler(IComebackDbContext context)
+        => _context = context;
 
-     public async Task<CreateGoalResponse> Handle(CreateGoalRequest request, CancellationToken cancellationToken)
-     {
-         var goal = new Goal(
-             request.Goal.Name,
-             request.Goal.Date,
-             request.Goal.Weight,
-             request.Goal.Description);
+    public async Task<CreateGoalResponse> Handle(CreateGoalRequest request, CancellationToken cancellationToken)
+    {
+        var goal = new Goal(
+            request.Goal.Name,
+            request.Goal.Date,
+            request.Goal.Weight,
+            request.Goal.Description);
 
-         _context.Goals.Add(goal);
+        _context.Goals.Add(goal);
 
-         await _context.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
-         return new()
-         {
-             Goal = goal.ToDto()
-         };
-     }
+        return new()
+        {
+            Goal = goal.ToDto()
+        };
+    }
 
- }
+}
 
 
