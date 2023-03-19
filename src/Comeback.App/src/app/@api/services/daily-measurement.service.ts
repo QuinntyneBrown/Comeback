@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { baseUrl } from '@core/constants';
 import { HttpClient } from '@angular/common/http';
@@ -56,3 +59,4 @@ export class DailyMeasurementService implements IPagableService<DailyMeasurement
     return this._client.put<{ dailyMeasurement: DailyMeasurement }>(`${this._baseUrl}api/dailyMeasurement`, { dailyMeasurement: options.dailyMeasurement });
   }
 }
+

@@ -1,119 +1,125 @@
-using System.Net;
-using System.Threading.Tasks;
-using Comeback.Api.Features;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Comeback.Core.AggregateModel.GoalAggregate.Commands;
+using Comeback.Core.AggregateModel.GoalAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Threading.Tasks;
 
-namespace Comeback.Api.Controllers
+
+namespace Comeback.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class GoalController
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class GoalController
+    private readonly IMediator _mediator;
+
+    public GoalController(IMediator mediator)
+        => _mediator = mediator;
+
+    [HttpGet("{goalId}", Name = "GetGoalByIdRoute")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalByIdResponse>> GetById([FromRoute] GetGoalByIdRequest request)
     {
-        private readonly IMediator _mediator;
+        var response = await _mediator.Send(request);
 
-        public GoalController(IMediator mediator)
-            => _mediator = mediator;
-
-        [HttpGet("{goalId}", Name = "GetGoalByIdRoute")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoalById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoalById.Response>> GetById([FromRoute] GetGoalById.Request request)
+        if (response.Goal == null)
         {
-            var response = await _mediator.Send(request);
-
-            if (response.Goal == null)
-            {
-                return new NotFoundObjectResult(request.GoalId);
-            }
-
-            return response;
+            return new NotFoundObjectResult(request.GoalId);
         }
 
-        [HttpGet("type/{type}", Name = "GetGoalByTypeRoute")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoalsByType.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoalsByType.Response>> GetByType([FromRoute] GetGoalsByType.Request request)
-        {
-            return await _mediator.Send(request);
-        }
-
-        [HttpGet("today", Name = "GetGoalTodayRoute")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoalByDate.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoalByDate.Response>> GetToday()
-        {
-            return await _mediator.Send(new GetGoalByDate.Request());
-        }
-
-        [HttpGet("relative", Name = "GetGoalRelativeRoute")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoalRelative.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoalRelative.Response>> GetRelative()
-        {
-            return await _mediator.Send(new GetGoalRelative.Request());
-        }
-
-        [HttpGet("date/{date}", Name = "GetGoalByDateRoute")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoalByDate.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoalByDate.Response>> GetByDate([FromRoute] GetGoalByDate.Request request)
-        {
-            return await _mediator.Send(request);
-        }
-
-
-        [HttpGet(Name = "GetGoalsRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoals.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoals.Response>> Get()
-            => await _mediator.Send(new GetGoals.Request());
-
-        [HttpPost(Name = "CreateGoalRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateGoal.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateGoal.Response>> Create([FromBody] CreateGoal.Request request)
-            => await _mediator.Send(request);
-
-        [HttpGet("page/{pageSize}/{index}", Name = "GetGoalsPageRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetGoalsPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetGoalsPage.Response>> Page([FromRoute] GetGoalsPage.Request request)
-            => await _mediator.Send(request);
-
-        [HttpPut(Name = "UpdateGoalRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateGoal.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateGoal.Response>> Update([FromBody] UpdateGoal.Request request)
-            => await _mediator.Send(request);
-
-        [HttpPut("acheive", Name = "AchieveGoalRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(AchieveGoal.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<AchieveGoal.Response>> Achieve([FromBody] AchieveGoal.Request request)
-            => await _mediator.Send(request);
-
-        [HttpDelete("{goalId}", Name = "RemoveGoalRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveGoal.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveGoal.Response>> Remove([FromRoute] RemoveGoal.Request request)
-            => await _mediator.Send(request);
-
+        return response;
     }
+
+    [HttpGet("type/{type}", Name = "GetGoalByTypeRoute")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalsByTypeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalsByTypeResponse>> GetByType([FromRoute] GetGoalsByTypeRequest request)
+    {
+        return await _mediator.Send(request);
+    }
+
+    [HttpGet("today", Name = "GetGoalTodayRoute")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalByDateResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalByDateResponse>> GetToday()
+    {
+        return await _mediator.Send(new GetGoalByDateRequest());
+    }
+
+    [HttpGet("relative", Name = "GetGoalRelativeRoute")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalRelativeResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalRelativeResponse>> GetRelative()
+    {
+        return await _mediator.Send(new GetGoalRelativeRequest());
+    }
+
+    [HttpGet("date/{date}", Name = "GetGoalByDateRoute")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalByDateResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalByDateResponse>> GetByDate([FromRoute] GetGoalByDateRequest request)
+    {
+        return await _mediator.Send(request);
+    }
+
+
+    [HttpGet(Name = "GetGoalsRoute")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalsResponse>> Get()
+        => await _mediator.Send(new GetGoalsRequest());
+
+    [HttpPost(Name = "CreateGoalRoute")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateGoalResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateGoalResponse>> Create([FromBody] CreateGoalRequest request)
+        => await _mediator.Send(request);
+
+    [HttpGet("page/{pageSize}/{index}", Name = "GetGoalsPageRoute")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalsPageResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalsPageResponse>> Page([FromRoute] GetGoalsPageRequest request)
+        => await _mediator.Send(request);
+
+    [HttpPut(Name = "UpdateGoalRoute")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateGoalResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateGoalResponse>> Update([FromBody] UpdateGoalRequest request)
+        => await _mediator.Send(request);
+
+    [HttpPut("acheive", Name = "AchieveGoalRoute")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(AchieveGoalResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<AchieveGoalResponse>> Achieve([FromBody] AchieveGoalRequest request)
+        => await _mediator.Send(request);
+
+    [HttpDelete("{goalId}", Name = "RemoveGoalRoute")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(RemoveGoalResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveGoalResponse>> Remove([FromRoute] RemoveGoalRequest request)
+        => await _mediator.Send(request);
+
 }
+
+

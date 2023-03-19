@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DailyMeasurement } from '@api';
 
@@ -14,3 +17,4 @@ export class DailyMeasurementCardComponent {
 
   @Input() dailyMeasurement: DailyMeasurement;
 }
+

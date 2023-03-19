@@ -1,61 +1,92 @@
-using Comeback.Api.Data;
-using Microsoft.AspNetCore.Hosting;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Comeback.Infrastructure.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Linq;
 
-namespace Comeback.Api
+Log.Logger = new LoggerConfiguration()
+.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+.Enrich.FromLogContext()
+.WriteTo.Console()
+.CreateBootstrapLogger();
+
+try
 {
-    public class Program
+    Log.Information("Starting web host");
+
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddCoreServices();
+
+    builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+    builder.Services.AddApiServices(builder.Configuration);
+
+    var app = builder.Build();
+
+    app.UseSwagger(options => options.SerializeAsV2 = true);
+
+    app.UseSwaggerUI(options =>
     {
-        public static void Main(string[] args)
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDoService");
+        options.RoutePrefix = string.Empty;
+        options.DisplayOperationId();
+    });
+
+    app.UseCors("CorsPolicy");
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
+
+    using (var scope = services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<ComebackDbContext>();
+
+        if (args.Contains("ci"))
+            args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
+
+        if (args.Contains("dropdb"))
         {
-            var host = CreateHostBuilder(args).Build();
 
-            ProcessDbCommands(args, host);
+            context.Database.ExecuteSql($"DROP SCHEMA Comeback;");
 
-            host.Run();
+            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Comeback_%';");
         }
 
-        private static void ProcessDbCommands(string[] args, IHost host)
+        if (args.Contains("migratedb"))
         {
-            var services = (IServiceScopeFactory)host.Services.GetService(typeof(IServiceScopeFactory));
-
-            using (var scope = services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<ComebackDbContext>();
-                var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-
-                if (args.Contains("ci"))
-                    args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
-
-                if (args.Contains("dropdb"))
-                {
-                    context.Database.EnsureDeleted();
-                }
-
-                if (args.Contains("migratedb"))
-                {
-                    context.Database.Migrate();
-                }
-
-                if (args.Contains("seeddb"))
-                {
-                    SeedData.Seed(context);
-                }
-                if (args.Contains("stop"))
-                    Environment.Exit(0);
-            }
+            context.Database.Migrate();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        if (args.Contains("seeddb"))
+        {
+            context.Seed();
+        }
+
+        if (args.Contains("stop"))
+            Environment.Exit(0);
     }
+
+    app.Run();
+
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
 }

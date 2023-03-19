@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Comeback.Api": {
+    "https": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
