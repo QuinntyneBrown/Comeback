@@ -1,0 +1,1 @@
+export const BASE_URL = '@FEATURES/COMEBACK:BASE_URL';
