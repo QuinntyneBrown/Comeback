@@ -6,16 +6,31 @@ import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../../constants';
 import { map, Observable } from 'rxjs';
 import { DailyMeasurement } from './daily-measurement';
+import { EntityPage } from '../../kernel/entity-page';
+import { IPagableService } from '../../kernel/ipagable-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DailyMeasurementService {
+export class DailyMeasurementService implements IPagableService<DailyMeasurement> {
+
+  uniqueIdentifierName = "dailyMeasurementId";
 
   constructor(
     @Inject(BASE_URL) private readonly _baseUrl: string,
     private readonly _client: HttpClient
   ) { }
+
+  getPage(options: { pageIndex: number; pageSize: number; }): Observable<EntityPage<DailyMeasurement>> {
+    return this._client.get<EntityPage<DailyMeasurement>>(`${this._baseUrl}api/dailyMeasurement/page/${options.pageSize}/${options.pageIndex}`)
+  }
+  
+  public getToday(): Observable<DailyMeasurement> {
+    return this._client.get<{ dailyMeasurement: DailyMeasurement }>(`${this._baseUrl}api/1.0/dailyMeasurement/today`)
+      .pipe(
+        map(x => x.dailyMeasurement)
+      );
+  }
 
   public get(): Observable<Array<DailyMeasurement>> {
     return this._client.get<{ dailyMeasurements: Array<DailyMeasurement> }>(`${this._baseUrl}api/1.0/dailyMeasurement`)

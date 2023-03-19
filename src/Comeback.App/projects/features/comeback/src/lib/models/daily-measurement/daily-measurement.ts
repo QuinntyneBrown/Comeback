@@ -2,7 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 export type DailyMeasurement = {
-  dailyMeasurementId?: string;
+  dailyMeasurementId: string,
+  description: string,
+  date: string,
+  weight: number
 };
-
 
