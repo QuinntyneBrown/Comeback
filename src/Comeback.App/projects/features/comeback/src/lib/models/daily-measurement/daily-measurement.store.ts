@@ -3,16 +3,18 @@
 
 import { inject, Injectable } from "@angular/core";
 import { ComponentStore, tapResponse } from "@ngrx/component-store";
-import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
+import { combineLatest, exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { DailyMeasurement } from "./daily-measurement";
 import { DailyMeasurementService } from "./daily-measurement.service";
 
 export interface DailyMeasurementState {
     dailyMeasurements: DailyMeasurement[]
+    dailyMeasurementToday: DailyMeasurement | null
 }
 
 const initialDailyMeasurementState = {
-    dailyMeasurements: []
+    dailyMeasurements: [] as DailyMeasurement[],
+    dailyMeasurementToday: null
 };
 
 @Injectable({
@@ -58,9 +60,12 @@ export class DailyMeasurementStore extends ComponentStore<DailyMeasurementState>
     );
 
     readonly load = this.effect<void>(
-        exhaustMap(_ => this._dailyMeasurementService.get().pipe(            
+        exhaustMap(_ => combineLatest([
+            this._dailyMeasurementService.get(),
+            this._dailyMeasurementService.getToday()
+        ]).pipe(            
             tapResponse(
-                dailyMeasurements => this.patchState({ dailyMeasurements }),
+                ([dailyMeasurements, dailyMeasurementToday]) => this.patchState({ dailyMeasurements, dailyMeasurementToday }),
                 noop                
             )
         ))

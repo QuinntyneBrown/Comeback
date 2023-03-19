@@ -6,13 +6,16 @@ using Comeback.Core.AggregateModel.GoalAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Threading.Tasks;
+using System.Net.Mime;
 
 
 namespace Comeback.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/{version:apiVersion}/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
 public class DailyMeasurementController
 {
     private readonly IMediator _mediator;

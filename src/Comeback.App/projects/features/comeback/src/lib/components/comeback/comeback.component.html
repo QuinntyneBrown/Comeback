@@ -1,3 +1,34 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
+    <div class="g-button-group">
+        <button class="g-button" mat-raised-button (click)="vm.create()" color="primary">Create Daily Measurement</button>
+        <button class="g-button" mat-raised-button (click)="vm.createGoal()" color="primary">Create Goal</button>
+    </div>
+
+    <h2>Today</h2>
+
+    <app-goal-by-date-card>
+  
+    </app-goal-by-date-card>
+  
+    <h2>Daily Measurements</h2>
+  
+    <div class="g-grid">
+  
+      <app-daily-measurement-card 
+
+      *ngFor="let dailyMeasurement of vm.dailyMeasurements">
+  
+      </app-daily-measurement-card>
+  
+    </div>
+  
+    <h2>Goals</h2>
+  
+    <div class="g-grid">
+  
+      <app-goal-card *ngFor="let goal of vm.goals">
+  
+      </app-goal-card>
+  
+    </div>
 </ng-container>

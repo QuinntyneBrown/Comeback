@@ -1,14 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-
 using Comeback.Core.AggregateModel.GoalAggregate.Commands;
 using MediatR;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
@@ -34,11 +28,17 @@ public class GetDailyMeasurementByDateHandler : IRequestHandler<GetDailyMeasurem
 
     public async Task<GetDailyMeasurementByDateResponse> Handle(GetDailyMeasurementByDateRequest request, CancellationToken cancellationToken)
     {
+        var dailyMeasurement = _context.DailyMeasurements
+            .FirstOrDefault(x => x.Date.Date == request.Date);
+
+        if(dailyMeasurement == null)
+        {
+            return new();
+        }
+
         return new()
         {
-            DailyMeasurement = _context.DailyMeasurements
-            .Where(x => x.Date.Date == request.Date)
-            .Select(x => x.ToDto()).FirstOrDefault()
+            DailyMeasurement = dailyMeasurement.ToDto()
         };
     }
 }

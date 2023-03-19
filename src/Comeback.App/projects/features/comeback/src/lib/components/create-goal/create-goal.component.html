@@ -1,3 +1,14 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
+    <mat-card>
+        <mat-card-title>
+          Create Goal
+        </mat-card-title>
+      
+        <app-goal-editor [formControl]="vm.formControl"></app-goal-editor>
+      
+        <div class="g-button-group">
+          <button class="g-button" mat-raised-button (click)="vm.cancel()">Cancel</button>
+          <button class="g-button" mat-raised-button (click)="vm.save(vm.formControl.value)">Save</button>
+        </div>
+      </mat-card>
 </ng-container>

@@ -37,6 +37,11 @@ public class GetGoalByDateHandler : IRequestHandler<GetGoalByDateRequest, GetGoa
 
         var measurement = _context.DailyMeasurements.FirstOrDefault();
 
+        if(measurement == null) {
+
+            return new();
+        }
+
         var days = Truncate(Convert.ToDecimal((request.Date - measurement.Date).TotalDays + 1));
 
         return new()

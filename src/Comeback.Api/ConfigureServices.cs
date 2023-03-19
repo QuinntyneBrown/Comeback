@@ -1,10 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using System;
-using System.IO;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -13,6 +11,13 @@ public static class ConfigureServices
 {
     public static void AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddApiVersioning(options =>
+        {
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+        });
+
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo

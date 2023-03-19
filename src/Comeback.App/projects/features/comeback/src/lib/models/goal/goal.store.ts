@@ -3,16 +3,18 @@
 
 import { inject, Injectable } from "@angular/core";
 import { ComponentStore, tapResponse } from "@ngrx/component-store";
-import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
+import { combineLatest, exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { Goal } from "./goal";
 import { GoalService } from "./goal.service";
 
 export interface GoalState {
-    goals: Goal[]
+    goals: Goal[],
+    goalToday: Goal | null
 }
 
 const initialGoalState = {
-    goals: []
+    goals: [] as Goal[],
+    goalToday: null
 };
 
 @Injectable({
@@ -58,9 +60,15 @@ export class GoalStore extends ComponentStore<GoalState> {
     );
 
     readonly load = this.effect<void>(
-        exhaustMap(_ => this._goalService.get().pipe(            
+        
+        exhaustMap(_ => combineLatest([
+            this._goalService.get(),
+            this._goalService.getToday()
+        ]).pipe(            
             tapResponse(
-                goals => this.patchState({ goals }),
+                ([goals, goalToday]) => {
+                    this.patchState({ goals, goalToday });
+                },
                 noop                
             )
         ))
