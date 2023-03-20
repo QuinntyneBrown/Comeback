@@ -12,7 +12,6 @@ public class CreateDailyMeasurementValidator : AbstractValidator<CreateDailyMeas
     public CreateDailyMeasurementValidator()
     {
         RuleFor(x => x.Weight).NotNull().NotEmpty();
-        RuleFor(x => x.Description).NotNull().NotEmpty();
         RuleFor(x => x.Date)
             .NotNull()
             .NotEmpty()
@@ -24,13 +23,12 @@ public class CreateDailyMeasurementValidator : AbstractValidator<CreateDailyMeas
 public class CreateDailyMeasurementRequest : IRequest<CreateDailyMeasurementResponse>
 {
     public decimal Weight { get; set; }
-    public required string Description { get; set; }
     public DateTime Date { get; set; }
 }
 
 public class CreateDailyMeasurementResponse : ResponseBase
 {
-    public DailyMeasurementDto DailyMeasurement { get; set; }
+    public required DailyMeasurementDto DailyMeasurement { get; set; }
 }
 
 public class CreateDailyMeasurementHandler : IRequestHandler<CreateDailyMeasurementRequest, CreateDailyMeasurementResponse>
@@ -45,7 +43,7 @@ public class CreateDailyMeasurementHandler : IRequestHandler<CreateDailyMeasurem
         var dailyMeasurement = new DailyMeasurement(
             DateOnly.FromDateTime(request.Date),
             request.Weight,
-            request.Description);
+            string.Empty);
 
         _context.DailyMeasurements.Add(dailyMeasurement);
 

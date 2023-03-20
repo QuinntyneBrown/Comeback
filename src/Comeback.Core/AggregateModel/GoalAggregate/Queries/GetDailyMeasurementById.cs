@@ -14,7 +14,7 @@ public class GetDailyMeasurementByIdRequest : IRequest<GetDailyMeasurementByIdRe
 
 public class GetDailyMeasurementByIdResponse : ResponseBase
 {
-    public DailyMeasurementDto DailyMeasurement { get; set; }
+    public required DailyMeasurementDto DailyMeasurement { get; set; }
 }
 
 public class GetDailyMeasurementByIdHandler : IRequestHandler<GetDailyMeasurementByIdRequest, GetDailyMeasurementByIdResponse>

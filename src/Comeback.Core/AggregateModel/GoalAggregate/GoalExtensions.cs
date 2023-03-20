@@ -17,7 +17,4 @@ public static class GoalExtensions
             Status = goal.Status
         };
     }
-
 }
-
-

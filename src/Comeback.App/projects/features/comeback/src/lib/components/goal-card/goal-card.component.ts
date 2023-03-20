@@ -13,7 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-goal-card',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, PushModule, MatCardModule, MatIconModule, MatButtonModule],
+  imports: [
+    CommonModule, 
+    PushModule, 
+    MatCardModule, 
+    MatIconModule, 
+    MatButtonModule],
   templateUrl: './goal-card.component.html',
   styleUrls: ['./goal-card.component.scss']
 })

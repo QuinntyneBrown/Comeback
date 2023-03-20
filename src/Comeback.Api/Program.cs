@@ -59,6 +59,9 @@ try
 
         if (args.Contains("dropdb"))
         {
+            context.Database.ExecuteSql($"DROP TABLE Comeback.DailyMeasurements;");
+
+            context.Database.ExecuteSql($"DROP TABLE Comeback.Goals;");
 
             context.Database.ExecuteSql($"DROP SCHEMA Comeback;");
 

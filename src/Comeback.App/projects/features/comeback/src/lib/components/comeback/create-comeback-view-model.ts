@@ -25,8 +25,8 @@ export function createComebackViewModel() {
       return {
         dailyMeasurements: dailyMeasurementState.dailyMeasurements,
         goals: goalState.goals,
-        goalToday: {},
-        dailyMeasurementToday: {},
+        goalToday: goalState.goalToday,
+        dailyMeasurementToday: dailyMeasurementState.dailyMeasurementToday,
         create: () => {
           dialog.open(DailyMeasurementComponent);
         },

@@ -9,14 +9,15 @@
     </div>
   
     <mat-card-title>
-      {{ goal.weight }}
+      {{ goal?.weight }}
     </mat-card-title>
+    
     <mat-card-subtitle>
-      {{ goal.date | date : 'longDate' }}
+      {{ goal?.date | date : 'longDate' }}
     </mat-card-subtitle>
   
     <mat-card-content>
-      {{ goal.name }}
+      {{ goal?.name }}
     </mat-card-content>
   
   

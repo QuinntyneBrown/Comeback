@@ -14,7 +14,7 @@ public static class ConfigureServices
         services.AddScoped<IComebackDbContext, ComebackDbContext>();
         services.AddDbContext<ComebackDbContext>(options =>
         {
-            options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly("IdentityService.Infrastructure"));
+            options.UseSqlServer(connectionString, builder => builder.MigrationsAssembly("Comeback.Infrastructure"));
         });
     }
 
