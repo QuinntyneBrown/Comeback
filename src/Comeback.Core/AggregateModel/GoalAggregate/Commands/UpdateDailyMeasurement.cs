@@ -17,19 +17,18 @@ public class UpdateDailyMeasurementValidator : AbstractValidator<UpdateDailyMeas
         RuleFor(x => x.Weight).NotEmpty();
         RuleFor(x => x.Description).NotEmpty();
     }
-
 }
 
 public class UpdateDailyMeasurementRequest : IRequest<UpdateDailyMeasurementResponse>
 {
     public Guid DailyMeasurementId { get; set; }
-    public string Description { get; set; }
+    public required string Description { get; set; }
     public decimal Weight { get; set; }
 }
 
 public class UpdateDailyMeasurementResponse : ResponseBase
 {
-    public DailyMeasurementDto DailyMeasurement { get; set; }
+    public required DailyMeasurementDto DailyMeasurement { get; set; }
 }
 
 public class UpdateDailyMeasurementHandler : IRequestHandler<UpdateDailyMeasurementRequest, UpdateDailyMeasurementResponse>

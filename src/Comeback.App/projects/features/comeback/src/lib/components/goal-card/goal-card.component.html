@@ -1,3 +1,23 @@
-<ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
-</ng-container>
+<mat-card>
+
+    <div class="button-group">
+      <button mat-icon-button (click)="$event.stopPropagation()">
+        <mat-icon >
+          delete
+        </mat-icon>
+      </button>
+    </div>
+  
+    <mat-card-title>
+      {{ goal.weight }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ goal.date | date : 'longDate' }}
+    </mat-card-subtitle>
+  
+    <mat-card-content>
+      {{ goal.name }}
+    </mat-card-content>
+  
+  
+  </mat-card>

@@ -55,6 +55,6 @@ export class GoalService implements IPagableService<Goal> {
   }
 
   public update(options: { goal: Goal }): Observable<{ goalId: string }> {    
-    return this._client.post<{ goalId: string }>(`${this._baseUrl}api/1.0/goal`, { goal: options.goal });
+    return this._client.post<{ goalId: string }>(`${this._baseUrl}api/1.0/goal`, options.goal);
   }
 }

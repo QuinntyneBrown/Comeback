@@ -1,3 +1,7 @@
-<ng-container *ngIf="vm$ | ngrxPush as vm">
-    
-</ng-container>
+<app-daily-measurement-card [dailyMeasurement]="dailyMeasurement" (editClick)="editClick.emit($event)">
+
+</app-daily-measurement-card>
+
+<app-goal-card [goal]="goal">
+
+</app-goal-card>

@@ -6,9 +6,7 @@
 
     <h2>Today</h2>
 
-    <app-goal-by-date-card>
-  
-    </app-goal-by-date-card>
+    <app-goal-by-date-card />
   
     <h2>Daily Measurements</h2>
   
@@ -16,9 +14,7 @@
   
       <app-daily-measurement-card 
 
-      *ngFor="let dailyMeasurement of vm.dailyMeasurements">
-  
-      </app-daily-measurement-card>
+      *ngFor="let dailyMeasurement of vm.dailyMeasurements" />
   
     </div>
   
@@ -26,9 +22,8 @@
   
     <div class="g-grid">
   
-      <app-goal-card *ngFor="let goal of vm.goals">
-  
-      </app-goal-card>
-  
+      <app-goal-card *ngFor="let goal of vm.goals" [goal]="goal" />
+
     </div>
+    
 </ng-container>

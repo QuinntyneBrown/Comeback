@@ -4,12 +4,13 @@
 import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PushModule } from '@ngrx/component';
-import { AbstractControl, ControlValueAccessor, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { fromEvent, Subject, takeUntil, tap } from 'rxjs';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
   selector: 'app-daily-measurement-editor',
@@ -18,6 +19,8 @@ import { fromEvent, Subject, takeUntil, tap } from 'rxjs';
   templateUrl: './daily-measurement-editor.component.html',
   styleUrls: ['./daily-measurement-editor.component.scss'],
   providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DailyMeasurementEditorComponent),
@@ -62,7 +65,8 @@ export class DailyMeasurementEditorComponent implements ControlValueAccessor, Va
   }
 
   public form = new FormGroup<any>({
-
+    date: new FormControl(null,[]),
+    weight: new FormControl(null,[])
   });
 
   writeValue(obj: any): void {

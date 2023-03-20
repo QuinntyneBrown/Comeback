@@ -1,3 +1,30 @@
-<ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
-</ng-container>
+<mat-card>
+
+    <div class="button-group">
+  
+      <button mat-icon-button (click)="edit.emit(dailyMeasurement); $event.stopPropagation()">
+        <mat-icon >
+          edit
+        </mat-icon>
+      </button>
+  
+      <button mat-icon-button (click)="delete.emit(dailyMeasurement)">
+        <mat-icon >
+          delete
+        </mat-icon>
+      </button>
+  
+    </div>
+  
+  
+  
+    <mat-card-title>
+      {{ dailyMeasurement?.weight }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ dailyMeasurement?.date | date : 'longDate' }}
+    </mat-card-subtitle>
+  
+  
+  
+  </mat-card>
