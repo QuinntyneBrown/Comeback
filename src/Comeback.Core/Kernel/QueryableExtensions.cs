@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using static System.Linq.Expressions.Expression;
 
 
-namespace Comeback.Core.Extensions;
+namespace Comeback.Core.Kernel;
 
 public static class IQueryableExtensions
 {

@@ -3,7 +3,6 @@
 
 using MediatR;
 
-
 namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
 
 public class GetGoalByDateRequest : IRequest<GetGoalByDateResponse>

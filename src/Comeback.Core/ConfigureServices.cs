@@ -18,7 +18,4 @@ public static class ConfigureServices
 
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<IComebackDbContext>());
     }
-
 }
-
-

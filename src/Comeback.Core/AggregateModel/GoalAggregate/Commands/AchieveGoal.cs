@@ -1,11 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
 
@@ -13,15 +11,14 @@ public class AchieveGoalValidator : AbstractValidator<AchieveGoalRequest>
 {
     public AchieveGoalValidator()
     {
-        RuleFor(request => request.Goal).NotNull();
-        RuleFor(request => request.Goal).SetValidator(new GoalValidator());
+        RuleFor(x => x.GoalId).NotEqual(default(Guid));
     }
 
 }
 
 public class AchieveGoalRequest : IRequest<AchieveGoalResponse>
 {
-    public GoalDto Goal { get; set; }
+    public Guid GoalId { get; set; }
 }
 
 public class AchieveGoalResponse : ResponseBase
@@ -38,7 +35,7 @@ public class AchieveGoalHandler : IRequestHandler<AchieveGoalRequest, AchieveGoa
 
     public async Task<AchieveGoalResponse> Handle(AchieveGoalRequest request, CancellationToken cancellationToken)
     {
-        var goal = await _context.Goals.SingleAsync(x => x.GoalId == request.Goal.GoalId);
+        var goal = await _context.Goals.SingleAsync(x => x.GoalId == request.GoalId);
 
         goal.Achieved();
 

@@ -4,7 +4,6 @@
 using Comeback.Core.AggregateModel.GoalAggregate.Commands;
 using MediatR;
 
-
 namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
 
 public class GetDailyMeasurementByDateRequest : IRequest<GetDailyMeasurementByDateResponse>

@@ -7,9 +7,9 @@ public class ResponseBase
 {
     public ResponseBase()
     {
-        ValidationErrors = new List<string>();
+        Errors = new List<string>();
     }
-    public List<string> ValidationErrors { get; set; }
+    public List<string> Errors { get; set; }
 }
 
 
