@@ -3,7 +3,7 @@
 
 import { Dialog } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
-import { combineLatest, map,of } from "rxjs";
+import { combineLatest, map } from "rxjs";
 import { DailyMeasurementStore, GoalStore } from "../../models";
 import { CreateGoalComponent } from "../create-goal";
 import { DailyMeasurementComponent } from "../daily-measurement";

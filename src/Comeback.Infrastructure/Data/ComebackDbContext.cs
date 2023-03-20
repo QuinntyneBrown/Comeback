@@ -3,8 +3,8 @@
 
 using Comeback.Core;
 using Comeback.Core.AggregateModel.GoalAggregate;
+using Comeback.Core.Kernel;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace Comeback.Infrastructure.Data;
 
@@ -19,10 +19,20 @@ public class ComebackDbContext : DbContext, IComebackDbContext
     {
         modelBuilder.HasDefaultSchema("Comeback");
 
+        modelBuilder.Entity<Goal>(builder =>
+        {
+            builder.Property(x => x.Date)
+            .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+        });
+
+        modelBuilder.Entity<DailyMeasurement>(builder =>
+        {
+            builder.Property(x => x.Date)
+            .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+        });
+
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ComebackDbContext).Assembly);
     }
 }
-
-

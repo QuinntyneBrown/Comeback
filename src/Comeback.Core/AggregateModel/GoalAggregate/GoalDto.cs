@@ -14,7 +14,7 @@ public class GoalDto
     public string Name { get; set; }
     public decimal Weight { get; set; }
     public string Description { get; set; }
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
     public GoalStatus Status { get; set; } = GoalStatus.Initial;
 }
 

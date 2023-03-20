@@ -9,15 +9,15 @@ public class Goal
     public string Name { get; set; }
     public decimal Weight { get; private set; }
     public string Description { get; private set; }
-    public DateTime Date { get; private set; }
+    public DateOnly Date { get; private set; }
     public GoalStatus Status { get; private set; }
     public GoalType Type { get; private set; } = GoalType.Incremental;
-    public Goal(string name, DateTime date, decimal weight, string description)
+    public Goal(string name, DateOnly date, decimal weight)
     {
         Name = name;
         Date = date;
         Weight = weight;
-        Description = description;
+        Description = string.Empty;
         Status = GoalStatus.Initial;
     }
 

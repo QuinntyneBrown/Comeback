@@ -4,7 +4,6 @@
 import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_URL } from '@features/comeback';
@@ -15,9 +14,6 @@ bootstrapApplication(AppComponent, {
     { provide: BASE_URL, useValue: "https://localhost:5001/" },    
     importProvidersFrom(
       HttpClientModule,
-      RouterModule.forRoot([
-
-      ]), 
       BrowserAnimationsModule,     
     )
   ]

@@ -1,13 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-
 using Microsoft.EntityFrameworkCore;
 
 
@@ -17,15 +12,16 @@ public class UpdateGoalValidator : AbstractValidator<UpdateGoalRequest>
 {
     public UpdateGoalValidator()
     {
-        RuleFor(request => request.Goal).NotNull();
-        RuleFor(request => request.Goal).SetValidator(new GoalValidator());
+        RuleFor(x => x.GoalId).NotNull().NotEmpty();
+        RuleFor(x => x.Description).NotNull().NotEmpty();
     }
 
 }
 
 public class UpdateGoalRequest : IRequest<UpdateGoalResponse>
 {
-    public GoalDto Goal { get; set; }
+    public Guid GoalId { get; set; }
+    public required string Description { get; set; }
 }
 
 public class UpdateGoalResponse : ResponseBase
@@ -42,9 +38,9 @@ public class UpdateGoalHandler : IRequestHandler<UpdateGoalRequest, UpdateGoalRe
 
     public async Task<UpdateGoalResponse> Handle(UpdateGoalRequest request, CancellationToken cancellationToken)
     {
-        var goal = await _context.Goals.SingleAsync(x => x.GoalId == request.Goal.GoalId);
+        var goal = await _context.Goals.SingleAsync(x => x.GoalId == request.GoalId);
 
-        goal.SetDescription(request.Goal.Description);
+        goal.SetDescription(request.Description);
 
         await _context.SaveChangesAsync(cancellationToken);
 

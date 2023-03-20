@@ -4,12 +4,6 @@
 
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-
-
-
 
 namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
 
@@ -17,15 +11,21 @@ public class CreateDailyMeasurementValidator : AbstractValidator<CreateDailyMeas
 {
     public CreateDailyMeasurementValidator()
     {
-        RuleFor(request => request.DailyMeasurement).NotNull();
-        RuleFor(request => request.DailyMeasurement).SetValidator(new DailyMeasurementValidator());
+        RuleFor(x => x.Weight).NotNull().NotEmpty();
+        RuleFor(x => x.Description).NotNull().NotEmpty();
+        RuleFor(x => x.Date)
+            .NotNull()
+            .NotEmpty()
+            .NotEqual(default(DateTime));
     }
 
 }
 
 public class CreateDailyMeasurementRequest : IRequest<CreateDailyMeasurementResponse>
 {
-    public DailyMeasurementDto DailyMeasurement { get; set; }
+    public decimal Weight { get; set; }
+    public required string Description { get; set; }
+    public DateTime Date { get; set; }
 }
 
 public class CreateDailyMeasurementResponse : ResponseBase
@@ -43,9 +43,9 @@ public class CreateDailyMeasurementHandler : IRequestHandler<CreateDailyMeasurem
     public async Task<CreateDailyMeasurementResponse> Handle(CreateDailyMeasurementRequest request, CancellationToken cancellationToken)
     {
         var dailyMeasurement = new DailyMeasurement(
-            request.DailyMeasurement.Date,
-            request.DailyMeasurement.Weight,
-            request.DailyMeasurement.Description);
+            DateOnly.FromDateTime(request.Date),
+            request.Weight,
+            request.Description);
 
         _context.DailyMeasurements.Add(dailyMeasurement);
 

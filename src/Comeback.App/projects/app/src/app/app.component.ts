@@ -3,7 +3,6 @@
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { ComebackComponent } from '@features/comeback';
 
 @Component({
@@ -13,10 +12,7 @@ import { ComebackComponent } from '@features/comeback';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
     ComebackComponent
   ]
 })
-export class AppComponent {
-
-}
+export class AppComponent { }

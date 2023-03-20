@@ -1,14 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-
 using MediatR;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using static System.Decimal;
 
 
 namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
@@ -42,14 +35,14 @@ public class GetGoalByDateHandler : IRequestHandler<GetGoalByDateRequest, GetGoa
             return new();
         }
 
-        var days = Truncate(Convert.ToDecimal((request.Date - measurement.Date).TotalDays + 1));
+        var days = DateOnly.FromDateTime(request.Date).DayNumber - measurement.Date.DayNumber + 1;
 
         return new()
         {
             Goal = new GoalDto
             {
                 Name = "Date",
-                Date = DateTime.UtcNow,
+                Date = DateOnly.FromDateTime(DateTime.UtcNow),
                 Weight = measurement.Weight - days * 0.6m
             }
         };

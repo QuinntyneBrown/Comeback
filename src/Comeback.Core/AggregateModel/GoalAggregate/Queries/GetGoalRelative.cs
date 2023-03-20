@@ -32,7 +32,7 @@ public class GetGoalRelativeHandler : IRequestHandler<GetGoalRelativeRequest, Ge
     {
 
         var measurement = _context.DailyMeasurements
-            .Where(x => x.Date.Date == DateTime.UtcNow.AddDays(-1).Date)
+            .Where(x => x.Date == DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1).Date))
             .Single();
 
         return new()
@@ -40,7 +40,7 @@ public class GetGoalRelativeHandler : IRequestHandler<GetGoalRelativeRequest, Ge
             Goal = new()
             {
                 Name = "Relative",
-                Date = DateTime.UtcNow,
+                Date = DateOnly.FromDateTime(DateTime.UtcNow),
                 Weight = measurement.Weight - 0.5m
             }
         };

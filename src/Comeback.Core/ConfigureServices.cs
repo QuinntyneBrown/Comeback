@@ -4,6 +4,7 @@
 using Comeback.Core;
 using Comeback.Core.Behaviors;
 using FluentValidation;
+using MediatR;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,8 @@ public static class ConfigureServices
     public static void AddCoreServices(this IServiceCollection services)
     {
         services.AddValidatorsFromAssemblyContaining(typeof(ValidationBehavior<,>));
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<IComebackDbContext>());
     }

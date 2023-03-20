@@ -4,10 +4,6 @@
 
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-
 using Microsoft.EntityFrameworkCore;
 
 
@@ -17,15 +13,18 @@ public class UpdateDailyMeasurementValidator : AbstractValidator<UpdateDailyMeas
 {
     public UpdateDailyMeasurementValidator()
     {
-        RuleFor(request => request.DailyMeasurement).NotNull();
-        RuleFor(request => request.DailyMeasurement).SetValidator(new DailyMeasurementValidator());
+        RuleFor(x => x.DailyMeasurementId).NotEmpty();
+        RuleFor(x => x.Weight).NotEmpty();
+        RuleFor(x => x.Description).NotEmpty();
     }
 
 }
 
 public class UpdateDailyMeasurementRequest : IRequest<UpdateDailyMeasurementResponse>
 {
-    public DailyMeasurementDto DailyMeasurement { get; set; }
+    public Guid DailyMeasurementId { get; set; }
+    public string Description { get; set; }
+    public decimal Weight { get; set; }
 }
 
 public class UpdateDailyMeasurementResponse : ResponseBase
@@ -42,11 +41,11 @@ public class UpdateDailyMeasurementHandler : IRequestHandler<UpdateDailyMeasurem
 
     public async Task<UpdateDailyMeasurementResponse> Handle(UpdateDailyMeasurementRequest request, CancellationToken cancellationToken)
     {
-        var dailyMeasurement = await _context.DailyMeasurements.SingleAsync(x => x.DailyMeasurementId == request.DailyMeasurement.DailyMeasurementId);
+        var dailyMeasurement = await _context.DailyMeasurements.SingleAsync(x => x.DailyMeasurementId == request.DailyMeasurementId);
 
         dailyMeasurement.Update(
-            request.DailyMeasurement.Weight,
-            request.DailyMeasurement.Description);
+            request.Weight,
+            request.Description);
 
         await _context.SaveChangesAsync(cancellationToken);
 

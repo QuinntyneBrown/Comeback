@@ -4,11 +4,6 @@
 
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-
-
 using System;
 
 
@@ -18,15 +13,21 @@ public class CreateGoalValidator : AbstractValidator<CreateGoalRequest>
 {
     public CreateGoalValidator()
     {
-        RuleFor(request => request.Goal).NotNull();
-        RuleFor(request => request.Goal).SetValidator(new GoalValidator());
+        RuleFor(x => x.Name).NotNull().NotEmpty();
+        RuleFor(x => x.Date)
+            .NotNull()
+            .NotEmpty()
+            .NotEqual(default(DateTime));
+        RuleFor(x => x.Weight).NotNull().NotEmpty().NotEqual(default(decimal));
     }
 
 }
 
 public class CreateGoalRequest : IRequest<CreateGoalResponse>
 {
-    public GoalDto Goal { get; set; }
+    public string Name { get; set; }
+    public DateTime Date { get; set; }
+    public decimal Weight { get; set; }
 }
 
 public class CreateGoalResponse : ResponseBase
@@ -43,11 +44,11 @@ public class CreateGoalHandler : IRequestHandler<CreateGoalRequest, CreateGoalRe
 
     public async Task<CreateGoalResponse> Handle(CreateGoalRequest request, CancellationToken cancellationToken)
     {
+
         var goal = new Goal(
-            request.Goal.Name,
-            request.Goal.Date,
-            request.Goal.Weight,
-            request.Goal.Description);
+            request.Name,
+            DateOnly.FromDateTime(request.Date),
+            request.Weight);
 
         _context.Goals.Add(goal);
 
@@ -57,6 +58,7 @@ public class CreateGoalHandler : IRequestHandler<CreateGoalRequest, CreateGoalRe
         {
             Goal = goal.ToDto()
         };
+
     }
 
 }

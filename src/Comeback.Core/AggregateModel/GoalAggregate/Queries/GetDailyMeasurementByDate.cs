@@ -29,7 +29,7 @@ public class GetDailyMeasurementByDateHandler : IRequestHandler<GetDailyMeasurem
     public async Task<GetDailyMeasurementByDateResponse> Handle(GetDailyMeasurementByDateRequest request, CancellationToken cancellationToken)
     {
         var dailyMeasurement = _context.DailyMeasurements
-            .FirstOrDefault(x => x.Date.Date == request.Date);
+            .FirstOrDefault(x => x.Date == DateOnly.FromDateTime(request.Date));
 
         if(dailyMeasurement == null)
         {

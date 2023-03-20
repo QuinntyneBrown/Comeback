@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { GoalCardComponent } from '../goal-card';
 import { GoalByDateCardComponent } from '../goal-by-date-card';
 import { DailyMeasurementCardComponent } from '../daily-measurement-card';
-import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { DialogModule } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-comeback',
