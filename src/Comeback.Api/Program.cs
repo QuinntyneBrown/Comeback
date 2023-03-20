@@ -2,14 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Comeback.Infrastructure.Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.Linq;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -35,7 +30,7 @@ try
 
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDoService");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Comeback");
         options.RoutePrefix = string.Empty;
         options.DisplayOperationId();
     });
