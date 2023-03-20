@@ -3,7 +3,7 @@
 
 using MediatR;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Queries;
 
 public class GetGoalsByTypeRequest : IRequest<GetGoalsByTypeResponse>
 {

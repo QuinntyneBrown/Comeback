@@ -6,7 +6,7 @@ using System;
 
 
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Commands;
 
 public static class DailyMeasurementExtensions
 {

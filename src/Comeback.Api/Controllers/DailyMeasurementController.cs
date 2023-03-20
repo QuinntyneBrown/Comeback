@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Comeback.Core.AggregateModel.GoalAggregate.Commands;
-using Comeback.Core.AggregateModel.GoalAggregate.Queries;
+using Comeback.Core.AggregatesModel.GoalAggregate.Commands;
+using Comeback.Core.AggregatesModel.GoalAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

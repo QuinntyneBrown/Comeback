@@ -4,7 +4,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Queries;
 
 public class GetGoalByIdRequest : IRequest<GetGoalByIdResponse>
 {

@@ -7,7 +7,7 @@ using MediatR;
 using System;
 
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Commands;
 
 public class CreateGoalValidator : AbstractValidator<CreateGoalRequest>
 {

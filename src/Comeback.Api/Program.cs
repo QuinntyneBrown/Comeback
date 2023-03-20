@@ -20,7 +20,7 @@ try
 
     builder.Services.AddCoreServices();
 
-    builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection"));
+    builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
     builder.Services.AddApiServices(builder.Configuration);
 

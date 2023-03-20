@@ -3,7 +3,7 @@
 
 using MediatR;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Queries;
 
 public class GetGoalByDateRequest : IRequest<GetGoalByDateResponse>
 {
@@ -13,6 +13,8 @@ public class GetGoalByDateRequest : IRequest<GetGoalByDateResponse>
 public class GetGoalByDateResponse
 {
     public GoalDto Goal { get; set; }
+
+    public static GetGoalByDateResponse Empty => new () { };
 }
 
 public class GetGoalByDateHandler : IRequestHandler<GetGoalByDateRequest, GetGoalByDateResponse>
@@ -31,7 +33,7 @@ public class GetGoalByDateHandler : IRequestHandler<GetGoalByDateRequest, GetGoa
 
         if(measurement == null) {
 
-            return new();
+            return GetGoalByDateResponse.Empty;
         }
 
         var days = DateOnly.FromDateTime(request.Date).DayNumber - measurement.Date.DayNumber + 1;
@@ -40,7 +42,7 @@ public class GetGoalByDateHandler : IRequestHandler<GetGoalByDateRequest, GetGoa
         {
             Goal = new GoalDto
             {
-                Name = "Date",
+                Name = "Auto Generated Goal",
                 Date = DateOnly.FromDateTime(DateTime.UtcNow),
                 Weight = measurement.Weight - days * 0.6m
             }

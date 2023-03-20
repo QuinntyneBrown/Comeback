@@ -26,7 +26,7 @@ namespace Comeback.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Comeback.Core.AggregateModel.GoalAggregate.DailyMeasurement", b =>
+            modelBuilder.Entity("Comeback.Core.AggregatesModel.GoalAggregate.DailyMeasurement", b =>
                 {
                     b.Property<Guid>("DailyMeasurementId")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Comeback.Infrastructure.Migrations
                     b.ToTable("DailyMeasurements", "Comeback");
                 });
 
-            modelBuilder.Entity("Comeback.Core.AggregateModel.GoalAggregate.Goal", b =>
+            modelBuilder.Entity("Comeback.Core.AggregatesModel.GoalAggregate.Goal", b =>
                 {
                     b.Property<Guid>("GoalId")
                         .ValueGeneratedOnAdd()

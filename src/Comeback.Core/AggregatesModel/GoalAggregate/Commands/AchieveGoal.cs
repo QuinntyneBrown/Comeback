@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Commands;
 
 public class AchieveGoalValidator : AbstractValidator<AchieveGoalRequest>
 {

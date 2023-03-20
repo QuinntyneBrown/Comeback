@@ -5,7 +5,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Commands;
 
 public class CreateDailyMeasurementValidator : AbstractValidator<CreateDailyMeasurementRequest>
 {

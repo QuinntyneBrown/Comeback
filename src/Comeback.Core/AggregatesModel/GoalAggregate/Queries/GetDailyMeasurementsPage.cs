@@ -1,12 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Comeback.Core.AggregateModel.GoalAggregate.Commands;
+using Comeback.Core.AggregatesModel.GoalAggregate.Commands;
 using Comeback.Core.Kernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Queries;
 
 public class GetDailyMeasurementsPageRequest : IRequest<GetDailyMeasurementsPageResponse>
 {

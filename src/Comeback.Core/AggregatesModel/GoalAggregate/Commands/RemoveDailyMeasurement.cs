@@ -13,7 +13,7 @@ using System;
 
 
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Commands;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Commands;
 
 public class RemoveDailyMeasurementRequest : IRequest<RemoveDailyMeasurementResponse>
 {

@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 
-using Comeback.Core.AggregateModel.GoalAggregate;
+using Comeback.Core.AggregatesModel.GoalAggregate;
 using Microsoft.EntityFrameworkCore;
 
 

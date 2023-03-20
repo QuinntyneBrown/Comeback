@@ -5,7 +5,7 @@ using Comeback.Core.Kernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Comeback.Core.AggregateModel.GoalAggregate.Queries;
+namespace Comeback.Core.AggregatesModel.GoalAggregate.Queries;
 
 public class GetGoalsPageRequest : IRequest<GetGoalsPageResponse>
 {
